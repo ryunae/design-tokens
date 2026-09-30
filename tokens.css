@@ -1,0 +1,110 @@
+/* 내부 프로그램 공용 디자인 토큰 — 1층.
+ *
+ * 이 파일이 값의 유일한 출처다. 모든 이름에 --ds- 가 붙는다. 소비자의 어휘와 충돌하지
+ * 않게 하려는 것이다 — client-crawling 은 --muted 를 "흐린 글자"로 쓰는데 shadcn 은
+ * "흐린 배경"으로 쓴다. 같은 이름이 다른 뜻이면 덮기가 어긋나는 순간 글자가 사라지고,
+ * CSS 는 에러를 안 낸다. --card 는 뜻이 같아도 형식이 달라(삼중항 vs 색) 접두어가
+ * 없으면 `--card: hsl(var(--card))` 가 자기 참조가 되어 속성이 통째로 무효화된다.
+ *
+ * 색은 맨 삼중항으로 저장한다 — hsl() 로 감싸지 않아야 알파 합성이 된다:
+ *   color: hsl(var(--ds-primary));
+ *   box-shadow: 0 0 0 3px hsl(var(--ds-primary) / 0.36);
+ */
+:root {
+  /* --- 색상환. 실제로 공유되는 불변량은 hue 다.
+   *     명도·채도는 배경에 따라 다르고 달라야 한다(어두운 배경에서는 올려야 읽힌다).
+   *     어느 hue 를 누구에게 배정할지도 소비자가 정한다 — client-crawling 은
+   *     거래처=1 · 경쟁사1=4(호박), geo-master 는 chart-1..5 순서다. --- */
+  --ds-hue-1: 252; /* 보라 */
+  --ds-hue-2: 280; /* 자주 */
+  --ds-hue-3: 160; /* 에메랄드 */
+  --ds-hue-4: 40; /* 호박 */
+  --ds-hue-5: 350; /* 장미 */
+
+  /* --- 바탕과 글자 --- */
+  --ds-background: 230 25% 4%;
+  --ds-foreground: 210 40% 98%;
+  --ds-card: 230 20% 7%;
+  --ds-card-foreground: 210 40% 98%;
+  --ds-card-border: 230 20% 15%;
+  --ds-popover: 230 20% 7%;
+  --ds-popover-foreground: 210 40% 98%;
+  --ds-popover-border: 230 20% 15%;
+
+  /* --- 의미색 --- */
+  --ds-primary: var(--ds-hue-1) 87% 67%;
+  --ds-primary-foreground: 210 40% 98%;
+  --ds-secondary: 230 20% 15%;
+  --ds-secondary-foreground: 210 40% 98%;
+  --ds-muted: 230 20% 10%;
+  --ds-muted-foreground: 215 20% 65%;
+  --ds-accent: var(--ds-hue-2) 87% 65%;
+  --ds-accent-foreground: 210 40% 98%;
+  --ds-destructive: var(--ds-hue-5) 84% 60%;
+  --ds-destructive-foreground: 210 40% 98%;
+
+  --ds-border: 230 20% 18%;
+  --ds-input: 230 20% 18%;
+  --ds-ring: var(--ds-hue-1) 87% 67%;
+
+  /* --- 차트. geo-master 의 배정이다(소비자가 달리 배정해도 된다). --- */
+  --ds-chart-1: var(--ds-hue-1) 87% 67%;
+  --ds-chart-2: var(--ds-hue-2) 87% 65%;
+  --ds-chart-3: var(--ds-hue-3) 84% 55%;
+  --ds-chart-4: var(--ds-hue-4) 90% 60%;
+  --ds-chart-5: var(--ds-hue-5) 84% 60%;
+
+  /* --- 사이드바 --- */
+  --ds-sidebar: 230 25% 5%;
+  --ds-sidebar-foreground: 210 40% 98%;
+  --ds-sidebar-border: 230 20% 15%;
+  --ds-sidebar-primary: var(--ds-hue-1) 87% 67%;
+  --ds-sidebar-primary-foreground: 210 40% 98%;
+  --ds-sidebar-accent: 230 20% 12%;
+  --ds-sidebar-accent-foreground: 210 40% 98%;
+  --ds-sidebar-ring: var(--ds-hue-1) 87% 67%;
+
+  /* --- 테두리 파생. 바탕보다 9% 밝은 선. --- */
+  --ds-primary-border: hsl(from hsl(var(--ds-primary)) h s calc(l + 9));
+  --ds-secondary-border: hsl(from hsl(var(--ds-secondary)) h s calc(l + 9));
+  --ds-muted-border: hsl(from hsl(var(--ds-muted)) h s calc(l + 9));
+  --ds-accent-border: hsl(from hsl(var(--ds-accent)) h s calc(l + 9));
+  --ds-destructive-border: hsl(from hsl(var(--ds-destructive)) h s calc(l + 9));
+  --ds-sidebar-primary-border: hsl(from hsl(var(--ds-sidebar-primary)) h s calc(l + 9));
+  --ds-sidebar-accent-border: hsl(from hsl(var(--ds-sidebar-accent)) h s calc(l + 9));
+
+  /* --- 상호작용. 배경을 갈아끼우지 않고 위에 얹는 알파다 —
+   *     그래야 버튼 자기 배경과 무관하게 반응이 보인다. --- */
+  --ds-elevate-1: rgba(255, 255, 255, 0.04);
+  --ds-elevate-2: rgba(255, 255, 255, 0.09);
+  --ds-button-outline: rgba(255, 255, 255, 0.1);
+  --ds-badge-outline: rgba(255, 255, 255, 0.05);
+  --ds-glass: rgba(255, 255, 255, 0.04);
+  --ds-glass-line: rgba(255, 255, 255, 0.08);
+
+  /* --- 형태 --- */
+  --ds-radius: 0.75rem;
+  --ds-radius-sm: calc(var(--ds-radius) - 4px);
+  --ds-radius-md: calc(var(--ds-radius) - 2px);
+  --ds-radius-lg: var(--ds-radius);
+  --ds-radius-xl: calc(var(--ds-radius) + 4px);
+  --ds-spacing: 0.25rem;
+  --ds-tracking-normal: 0em;
+
+  /* --- 층위 --- */
+  --ds-shadow-2xs: 0px 2px 4px 0px rgba(0, 0, 0, 0.3);
+  --ds-shadow-xs: 0px 2px 4px 0px rgba(0, 0, 0, 0.3);
+  --ds-shadow-sm: 0px 2px 4px 0px rgba(0, 0, 0, 0.3), 0px 1px 2px -1px rgba(0, 0, 0, 0.3);
+  --ds-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.3), 0px 1px 2px -1px rgba(0, 0, 0, 0.3);
+  --ds-shadow-md: 0px 6px 12px 0px rgba(0, 0, 0, 0.3), 0px 2px 4px -1px rgba(0, 0, 0, 0.3);
+  --ds-shadow-lg: 0px 10px 20px 0px rgba(0, 0, 0, 0.3), 0px 4px 6px -1px rgba(0, 0, 0, 0.3);
+  --ds-shadow-xl: 0px 16px 32px 0px rgba(0, 0, 0, 0.3), 0px 8px 10px -1px rgba(0, 0, 0, 0.3);
+  --ds-shadow-2xl: 0px 24px 48px 0px rgba(0, 0, 0, 0.4);
+
+  /* --- 서체. 한글은 Pretendard 가 덮는다(fonts.css 의 unicode-range 2단).
+   *     그마저 못 덮는 글자(옛한글·한자)의 폴백은 소비자가 정한다. --- */
+  --ds-font-sans: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --ds-font-display: "Outfit", "Pretendard", sans-serif;
+  --ds-font-serif: Georgia, serif;
+  --ds-font-mono: Menlo, monospace;
+}

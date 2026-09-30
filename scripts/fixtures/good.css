@@ -1,0 +1,5 @@
+:root {
+  --bg: hsl(var(--ds-background));
+  --client: hsl(var(--ds-hue-1) 87% 73%);
+  --comp1-bg: #2a2114;
+}

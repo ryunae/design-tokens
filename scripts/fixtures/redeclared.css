@@ -1,0 +1,4 @@
+:root {
+  --ds-primary: 300 50% 50%;
+  --bg: hsl(var(--ds-background));
+}
