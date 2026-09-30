@@ -82,24 +82,44 @@
 }
 
 /* 배경 질감 — geo 는 이 그림을 7개 화면 **전부**에 고정으로 깐다(로그인만이 아니다).
- * 원본 PNG 1,206KB 를 WebP 82 로 줄여 46KB — opacity .5 · mix-blend-screen 로 깔리는
- * 장식이라 나란히 놓고 봐도 구분이 안 된다(2026-09-30 실측). PNG 는 폴백으로 남긴다.
+ * 원본 PNG 1,206KB 를 WebP 82 로 줄여 46KB — 나란히 놓고 봐도 구분이 안 된다(실측).
  *
- * 쓰는 쪽은 <div class="bg-layer"></div> 를 본문 앞에 한 번 둔다. src 경로가 다른
- * 소비자는 이 규칙을 덮어쓴다(client-crawling 은 /static/ 에서 서빙). */
+ * 구조는 geo 그대로 두 겹이다. 한 겹으로 합치면 안 된다 — 그림은 `mix-blend-mode:
+ * screen` 으로 **밝게** 얹혀야 어두운 바탕에서 보이고, 그 위에 그라데이션이 내용 쪽을
+ * 덮어 글자가 읽히게 한다. 처음에 background-image 두 장으로 합쳤더니 그림이
+ * 그라데이션에 묻혀 거의 안 보였다.
+ *
+ * 쓰는 쪽은 <div class="bg-layer"></div> 를 본문 앞에 한 번 둔다. 그림 주소가 다른
+ * 소비자는 ::before 의 background-image 만 덮는다(client-crawling 은 /static/). */
 .bg-layer {
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background-image:
-    linear-gradient(
-      135deg,
-      hsl(var(--ds-background) / 0.6),
-      hsl(var(--ds-background) / 0.85) 50%,
-      hsl(var(--ds-background))
-    ),
-    image-set(url("./images/glass-bg.webp") type("image/webp"), url("./images/glass-bg.png"));
-  background-size: cover, cover;
-  background-position: center, center;
+  overflow: hidden;
+  background: hsl(var(--ds-background));
+}
+.bg-layer::before,
+.bg-layer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+.bg-layer::before {
+  background-image: image-set(
+    url("./images/glass-bg.webp") type("image/webp"),
+    url("./images/glass-bg.png")
+  );
+  background-size: cover;
+  background-position: center;
+  opacity: 0.5;
+  mix-blend-mode: screen;
+}
+.bg-layer::after {
+  background: linear-gradient(
+    135deg,
+    hsl(var(--ds-background) / 0.6),
+    hsl(var(--ds-background) / 0.85) 50%,
+    hsl(var(--ds-background))
+  );
 }
