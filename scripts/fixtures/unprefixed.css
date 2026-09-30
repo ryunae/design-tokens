@@ -1,0 +1,7 @@
+:root {
+  --bg: hsl(var(--ds-background));
+}
+@layer base {
+  body { background-color: hsl(var(--background)); }
+  h1 { font-family: var(--app-font-display); }
+}
