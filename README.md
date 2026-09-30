@@ -11,7 +11,7 @@
 | client-crawling | `~/Documents/Dev/client-crawling` | `package.json` | `src/web/app.css` |
 | payattention-os | `~/Documents/Dev/app/payattention-os` | `package.json` | `src/app/globals.css` |
 
-새 소비자를 붙이면 이 표에 한 줄 더한다. **판올림 태그는 이 표의 전부를 고친 뒤에만 단다** — 확인은:
+새 소비자를 붙이면 이 표에 한 줄 더한다. **태그를 달면 같은 작업 안에서 이 표의 전부를 새 태그로 올리고, 아래가 전부 ok 인 걸 본 뒤에 끝낸다.** 소비자는 태그가 있어야 핀을 올릴 수 있으니 태그가 먼저, 끝은 전부 ok 다:
 
 ```bash
 node scripts/consumers.mjs   # 각 레포 origin/main 의 핀이 최신 태그인지. 하나라도 아니면 실패
