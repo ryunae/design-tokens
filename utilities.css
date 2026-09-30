@@ -89,12 +89,19 @@
  * 덮어 글자가 읽히게 한다. 처음에 background-image 두 장으로 합쳤더니 그림이
  * 그라데이션에 묻혀 거의 안 보였다.
  *
- * 쓰는 쪽은 <div class="bg-layer"></div> 를 본문 앞에 한 번 둔다. 그림 주소가 다른
- * 소비자는 ::before 의 background-image 만 덮는다(client-crawling 은 /static/). */
+ * 쓰는 쪽은 <div class="bg-layer"></div> 를 본문 앞에 한 번 두고, **내용을 그 위로
+ * 올린다**(`position: relative; z-index: 1`). geo 가 z-0 / z-10 으로 하는 것과 같다.
+ *
+ * z-index 를 -1 로 두면 안 된다. body 에 불투명 배경이 있으면 body 배경이 **나중에**
+ * 칠해져 이 층을 덮는다 — 화면이 완전 평면이 되고 아무 에러도 안 난다(2026-09-30 실측:
+ * 배경 픽셀의 평균과 최댓값이 똑같이 8.1 이었다).
+ *
+ * 그림 주소가 다른 소비자는 ::before 의 background-image 만 덮는다(client-crawling 은
+ * /static/ 에서 서빙). */
 .bg-layer {
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
   overflow: hidden;
   background: hsl(var(--ds-background));
