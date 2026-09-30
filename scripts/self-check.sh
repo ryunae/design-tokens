@@ -9,5 +9,8 @@ run() { node check-consumer.mjs "fixtures/$1" >/dev/null 2>&1; echo $?; }
 [ "$(run unknown.css)" = "1" ]    || { echo "FAIL: 없는 이름 참조를 못 잡았다"; fail=1; }
 [ "$(run unprefixed.css)" = "1" ] || { echo "FAIL: 접두어 없는 옛 이름을 못 잡았다"; fail=1; }
 [ "$(run dangling.tsx)" = "1" ]   || { echo "FAIL: .tsx 안의 옛 이름을 못 잡았다"; fail=1; }
+# 한 소비자의 CSS 가 정의하고 .tsx 가 쓰는 것은 정상이다 — 파일별로 따로 보면 오탐이 난다.
+node check-consumer.mjs fixtures/defines.css fixtures/uses.tsx >/dev/null 2>&1 \
+  || { echo "FAIL: 다른 파일의 정의를 못 본다(오탐)"; fail=1; }
 [ $fail = 0 ] && echo "self-check 통과"
 exit $fail

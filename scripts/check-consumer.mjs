@@ -19,8 +19,19 @@ const here = path.dirname(fileURLToPath(import.meta.url));
 const { names } = JSON.parse(fs.readFileSync(path.join(here, "../tokens.json"), "utf8"));
 const layer1 = new Set(names.map((n) => `--ds-${n}`));
 let bad = 0;
+const files = process.argv.slice(2);
 
-for (const file of process.argv.slice(2)) {
+// 정의는 **넘겨받은 파일 전체**에서 먼저 모은다. 파일별로 따로 보면, CSS 가 정의하고
+// .tsx 가 쓰는 정상적인 짝(Tailwind @theme 의 --radius-md 같은 것)이 전부 오탐이 된다.
+// 오탐이 섞이면 사람이 검사기를 무시하게 되고, 그게 검사기가 없는 것보다 나쁘다.
+const definedAll = new Set();
+for (const file of files) {
+  for (const m of fs.readFileSync(file, "utf8").matchAll(/^\s*(--[\w-]+)\s*:/gm)) {
+    definedAll.add(m[1]);
+  }
+}
+
+for (const file of files) {
   const css = fs.readFileSync(file, "utf8");
   const redeclared = [...css.matchAll(/^\s*(--ds-[\w-]+)\s*:/gm)].map((m) => m[1]);
   const unknown = [...css.matchAll(/var\(\s*(--ds-[\w-]+)/g)]
@@ -37,13 +48,12 @@ for (const file of process.argv.slice(2)) {
   // 이 파일이 스스로 정의한 이름은 2층이므로 통과시킨다. 정의도 없고 1층에도 없으면
   // 어디에서도 값이 오지 않는다 — Tailwind 가 만드는 이름(--tw-*, --color-* 등)은
   // 이 파일 안에서 @theme 이 선언하므로 defined 에 들어가 여기 안 걸린다.
-  const defined = new Set([...css.matchAll(/^\s*(--[\w-]+)\s*:/gm)].map((m) => m[1]));
   const dangling = [...css.matchAll(/var\(\s*(--[\w-]+)/g)]
     .map((m) => m[1])
     // --tw-* 는 Tailwind 가, --radix-* 는 Radix 가 런타임에 넣는다 — 우리 계약이 아니다.
     .filter(
       (n) =>
-        !defined.has(n) &&
+        !definedAll.has(n) &&
         !layer1.has(n) &&
         !n.startsWith("--tw-") &&
         !n.startsWith("--radix-"),
