@@ -9,8 +9,7 @@
 | GEO-maseuteo | `~/Documents/Dev/app/GEO-maseuteo` | `artifacts/geo-master/package.json` | `artifacts/geo-master/src/index.css` (기준 출처) |
 | review-gen | `~/Documents/Dev/app/review-gen` | `package.json` | `src/index.css` |
 | client-crawling | `~/Documents/Dev/client-crawling` | `package.json` | `src/web/app.css` |
-
-**payattention-os 는 소비자가 아니다**(2026-09-30 결정). 「팔레트 없음」이 아니라 편집국·활판 컨셉으로 **완성된 반대 방향 시스템**이다 — 각진 모서리 2/3/4px, Pretendard + 나눔명조, oklch 잉크 틴트, letterpress 버튼 물성. 452줄에 실측 근거가 주석으로 박혀 있다(「Noto Sans KR 폴백에서 버튼이 92.9px 이라 여백 12px 이면 6.9px 넘는다」 같은). 여기 토큰을 먹이는 건 값 교체가 아니라 그 정체성을 버리는 것이다. 표에 넣으면 `consumers.mjs` 가 영원히 FAIL 을 낸다.
+| payattention-os | `~/Documents/Dev/app/payattention-os` | `package.json` | `src/app/globals.css` |
 
 새 소비자를 붙이면 이 표에 한 줄 더한다. **판올림 태그는 이 표의 전부를 고친 뒤에만 단다** — 확인은:
 
