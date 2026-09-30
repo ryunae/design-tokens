@@ -12,5 +12,7 @@ run() { node check-consumer.mjs "fixtures/$1" >/dev/null 2>&1; echo $?; }
 # 한 소비자의 CSS 가 정의하고 .tsx 가 쓰는 것은 정상이다 — 파일별로 따로 보면 오탐이 난다.
 node check-consumer.mjs fixtures/defines.css fixtures/uses.tsx >/dev/null 2>&1 \
   || { echo "FAIL: 다른 파일의 정의를 못 본다(오탐)"; fail=1; }
+# 주석의 var(--ds-*) 같은 와일드카드 표기는 참조가 아니라 설명이다.
+[ "$(run prose.ts)" = "0" ]       || { echo "FAIL: 주석의 와일드카드를 참조로 읽는다(오탐)"; fail=1; }
 [ $fail = 0 ] && echo "self-check 통과"
 exit $fail

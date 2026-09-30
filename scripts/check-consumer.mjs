@@ -34,7 +34,7 @@ for (const file of files) {
 for (const file of files) {
   const css = fs.readFileSync(file, "utf8");
   const redeclared = [...css.matchAll(/^\s*(--ds-[\w-]+)\s*:/gm)].map((m) => m[1]);
-  const unknown = [...css.matchAll(/var\(\s*(--ds-[\w-]+)/g)]
+  const unknown = [...css.matchAll(/var\(\s*(--ds-[\w-]+)\s*[),]/g)]
     .map((m) => m[1])
     .filter((n) => !layer1.has(n));
   for (const n of new Set(redeclared)) {
@@ -48,7 +48,9 @@ for (const file of files) {
   // 이 파일이 스스로 정의한 이름은 2층이므로 통과시킨다. 정의도 없고 1층에도 없으면
   // 어디에서도 값이 오지 않는다 — Tailwind 가 만드는 이름(--tw-*, --color-* 등)은
   // 이 파일 안에서 @theme 이 선언하므로 defined 에 들어가 여기 안 걸린다.
-  const dangling = [...css.matchAll(/var\(\s*(--[\w-]+)/g)]
+  // 이름 뒤가 ) , 공백 중 하나여야 진짜 참조다. 주석의 var(--ds-*) 같은 와일드카드
+  // 표기는 설명이지 참조가 아니다(실제로 pages.ts 주석이 걸렸다).
+  const dangling = [...css.matchAll(/var\(\s*(--[\w-]+)\s*[),]/g)]
     .map((m) => m[1])
     // --tw-* 는 Tailwind 가, --radix-* 는 Radix 가 런타임에 넣는다 — 우리 계약이 아니다.
     .filter(
