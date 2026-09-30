@@ -4,13 +4,20 @@
 
 ## 소비자
 
-| 레포 | 파일 |
-|---|---|
-| GEO-maseuteo | `artifacts/geo-master/src/index.css` (기준 출처) |
-| review-gen | `src/index.css` |
-| client-crawling | `src/web/app.css` |
+| 레포 | 경로 | 의존성 선언 | 토큰 import |
+|---|---|---|---|
+| GEO-maseuteo | `~/Documents/Dev/app/GEO-maseuteo` | `artifacts/geo-master/package.json` | `artifacts/geo-master/src/index.css` (기준 출처) |
+| review-gen | `~/Documents/Dev/app/review-gen` | `package.json` | `src/index.css` |
+| client-crawling | `~/Documents/Dev/client-crawling` | `package.json` | `src/web/app.css` |
+| payattention-os | `~/Documents/Dev/app/payattention-os` | `package.json` | `src/app/globals.css` |
 
-새 소비자를 붙이면 이 표에 한 줄 더한다. **판올림 태그는 이 표의 전부를 고친 뒤에만 단다.**
+새 소비자를 붙이면 이 표에 한 줄 더한다. **판올림 태그는 이 표의 전부를 고친 뒤에만 단다** — 확인은:
+
+```bash
+node scripts/consumers.mjs   # 각 레포 origin/main 의 핀이 최신 태그인지. 하나라도 아니면 실패
+```
+
+상태·결정·인계는 볼트 `600. Developments/lib/design-tokens/` 에 있다.
 
 ## 쓰는 법
 
@@ -65,4 +72,4 @@ fs.writeFileSync("tokens.json",JSON.stringify({prefix:"ds",hue,names},null,2)+"\
 
 ## 설계 근거
 
-`~/Documents/Dev/client-crawling/docs/superpowers/specs/2026-09-30-design-tokens-ssot-design.md`
+`docs/superpowers/specs/2026-09-30-design-tokens-ssot-design.md` (구현 계획은 `docs/superpowers/plans/`). 원래 client-crawling 레포에서 썼고 2026-09-30 이리로 옮겼다.
