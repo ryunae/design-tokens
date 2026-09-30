@@ -40,7 +40,14 @@ for (const file of process.argv.slice(2)) {
   const defined = new Set([...css.matchAll(/^\s*(--[\w-]+)\s*:/gm)].map((m) => m[1]));
   const dangling = [...css.matchAll(/var\(\s*(--[\w-]+)/g)]
     .map((m) => m[1])
-    .filter((n) => !defined.has(n) && !layer1.has(n) && !n.startsWith("--tw-"));
+    // --tw-* 는 Tailwind 가, --radix-* 는 Radix 가 런타임에 넣는다 — 우리 계약이 아니다.
+    .filter(
+      (n) =>
+        !defined.has(n) &&
+        !layer1.has(n) &&
+        !n.startsWith("--tw-") &&
+        !n.startsWith("--radix-"),
+    );
   for (const n of new Set(dangling)) {
     const guess = layer1.has(`--ds-${n.slice(2)}`) ? ` — --ds-${n.slice(2)} 를 뜻한 것 같다` : "";
     console.error(`${file}: ${n} 은 어디에도 정의가 없다 — var() 가 조용히 무효가 된다${guess}`);

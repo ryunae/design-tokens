@@ -8,5 +8,6 @@ run() { node check-consumer.mjs "fixtures/$1" >/dev/null 2>&1; echo $?; }
 [ "$(run redeclared.css)" = "1" ] || { echo "FAIL: 1층 재선언을 못 잡았다"; fail=1; }
 [ "$(run unknown.css)" = "1" ]    || { echo "FAIL: 없는 이름 참조를 못 잡았다"; fail=1; }
 [ "$(run unprefixed.css)" = "1" ] || { echo "FAIL: 접두어 없는 옛 이름을 못 잡았다"; fail=1; }
+[ "$(run dangling.tsx)" = "1" ]   || { echo "FAIL: .tsx 안의 옛 이름을 못 잡았다"; fail=1; }
 [ $fail = 0 ] && echo "self-check 통과"
 exit $fail
