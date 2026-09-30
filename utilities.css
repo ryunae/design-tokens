@@ -1,0 +1,82 @@
+/* 합성 유틸 — 1층의 두 번째 층. tokens.css 가 **값**이라면 여기는 **조합**이다.
+ * 「유리 패널 = 흰 알파 + blur + 테두리 + 그림자」처럼 여러 값이 한 덩어리로 다녀야
+ * 같은 질감이 나온다. 값만 공유하면 세 앱이 같은 물감으로 다른 붓질을 하게 된다.
+ *
+ * Tailwind 를 쓰는 소비자(geo-master·review-gen)는 자기 @layer utilities 에 같은 이름이
+ * 이미 있다 — 그쪽은 이 파일을 안 불러도 된다. 번들러 없는 소비자(client-crawling)가
+ * 주 사용처다. */
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: var(--ds-shadow-2xl);
+}
+.glass-panel-subtle {
+  background: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* 글자에 얹는 그라데이션. background-clip 이라 color 가 transparent 가 된다 —
+ * 강제 색상 모드(윈도우 고대비)에서는 글자가 사라지므로 그 때는 끈다. */
+.text-gradient {
+  background: linear-gradient(90deg, hsl(var(--ds-foreground)), hsl(var(--ds-foreground) / 0.6));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.text-gradient-primary {
+  background: linear-gradient(90deg, hsl(var(--ds-primary)), hsl(var(--ds-accent)));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+@media (forced-colors: active) {
+  .text-gradient,
+  .text-gradient-primary {
+    background: none;
+    color: CanvasText;
+  }
+}
+
+.glow-success {
+  box-shadow: 0 0 20px 0 hsl(var(--ds-hue-3) 84% 55% / 0.3);
+}
+.glow-missing {
+  box-shadow: 0 0 20px 0 hsl(var(--ds-hue-5) 84% 60% / 0.3);
+}
+
+/* 배경 오브 — 사진 없이 깊이를 만든다. 부모에 position:relative·overflow:hidden 이
+ * 있어야 하고, 내용은 그 위에 와야 한다(이 층은 z-index 0, 아래로 깔린다). */
+.orbs {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.orbs::before,
+.orbs::after {
+  content: "";
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(64px);
+}
+.orbs::before {
+  width: 500px;
+  height: 500px;
+  top: 12%;
+  left: 18%;
+  background: hsl(var(--ds-primary) / 0.1);
+}
+.orbs::after {
+  width: 384px;
+  height: 384px;
+  bottom: 20%;
+  right: 18%;
+  background: hsl(var(--ds-accent) / 0.09);
+}
+@media (prefers-reduced-motion: no-preference) {
+  /* 정지 화면이라 움직임은 없다 — 이 블록은 앞으로 움직임을 넣을 자리다. */
+}

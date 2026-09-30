@@ -96,3 +96,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 
 --- Outfit ---
 SIL Open Font License 1.1 — https://github.com/Outfitio/Outfit-Fonts
+
+
+--- Lucide (icons.svg) ---
+ISC License — https://github.com/lucide-icons/lucide

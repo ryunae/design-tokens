@@ -1,15 +1,26 @@
 {
   "name": "@ryunae/design-tokens",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
-  "description": "내부 프로그램 공용 디자인 토큰 — geo-master · review-gen · client-crawling",
+  "description": "\ub0b4\ubd80 \ud504\ub85c\uadf8\ub7a8 \uacf5\uc6a9 \ub514\uc790\uc778 \ud1a0\ud070 \u2014 geo-master \u00b7 review-gen \u00b7 client-crawling",
   "license": "UNLICENSED",
   "type": "module",
   "exports": {
     "./tokens.css": "./tokens.css",
     "./tokens.json": "./tokens.json",
     "./fonts.css": "./fonts.css",
-    "./fonts/*": "./fonts/*"
+    "./fonts/*": "./fonts/*",
+    "./utilities.css": "./utilities.css",
+    "./icons.svg": "./icons.svg"
   },
-  "files": ["tokens.css", "tokens.json", "fonts.css", "fonts", "scripts", "LICENSE-fonts.txt"]
+  "files": [
+    "tokens.css",
+    "tokens.json",
+    "utilities.css",
+    "icons.svg",
+    "fonts.css",
+    "fonts",
+    "scripts",
+    "LICENSE-fonts.txt"
+  ]
 }
