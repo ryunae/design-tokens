@@ -103,7 +103,9 @@ ISC License — https://github.com/lucide-icons/lucide
 
 --- fonts/print/ (인쇄용 정적 변형본) ---
 fonts/print/*.ttf 는 위 두 서체를 굵기별 정적 TTF 로 인스턴스화한 Modified Version 이며
-같은 SIL Open Font License 1.1 을 따른다(위 저작권 문구·라이선스 전문 포함).
-OFL 3항에 따라 변형본은 원래 글꼴 이름(Pretendard·Pretendard Variable·Outfit)을 그대로 쓰지 않고
-고유 이름 「PA Pretendard」·「PA Outfit」(PostScript PAPretendard-*·PAOutfit-*)으로 배포한다.
+같은 SIL Open Font License 1.1 을 따른다. 원래 저작권 문구는 위와 각 글꼴 name 표에 그대로 둔다.
+  PA Sans    (PASans-*)    — Pretendard 에서 파생. Copyright (c) 2021, Kil Hyung-jin.
+  PA Display (PADisplay-*) — Outfit 에서 파생. Copyright 2021 The Outfit Project Authors.
+OFL 3항에 따라 변형본의 이름 어디에도 예약 이름(Pretendard)을 쓰지 않는다.
+Outfit 은 예약 이름을 선언하지 않았지만 같은 원칙으로 원래 이름을 쓰지 않는다.
 생성: scripts/build-print-fonts.mjs

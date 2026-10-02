@@ -5,7 +5,7 @@
 // 그리고 woff2 를 못 읽는다. 그래서 굵기별 정적 TTF 가 필요하다.
 // 왜 Pretendard 를 ks/ext 로 나누지 않나: 나눈 건 웹에서 덜 받으려는 것이다. PDF 는 쓴 글자만
 // 서브셋으로 담으므로 나눌 이유가 없고, 한 패밀리면 Typst 쪽 폴백 목록도 필요 없다.
-// 왜 이름을 바꾸나: OFL 의 예약 이름(Pretendard)을 변형본이 그대로 쓰면 안 되고, 이 맥처럼
+// 왜 이름을 바꾸나: OFL 3항 — 변형본은 예약 이름(Pretendard)을 이름 어디에도 못 쓴다(「PA Pretendard」도 안 된다). 또 이 맥처럼
 // 시스템에 Pretendard 가 깔려 있으면 Typst 가 조용히 시스템 것을 쓴다 — 고유 이름이면 없을 때 경고가 난다.
 import { execFileSync } from "node:child_process";
 import { existsSync } from "node:fs";
@@ -24,7 +24,7 @@ from fontTools.varLib.instancer import instantiateVariableFont
 out = pathlib.Path("fonts/print"); out.mkdir(parents=True, exist_ok=True)
 for old in out.glob("*.ttf"): old.unlink()
 WEIGHTS = {400: "Regular", 500: "Medium", 600: "SemiBold", 700: "Bold", 800: "ExtraBold"}
-for src, fam, ps in [("${SRC}", "PA Pretendard", "PAPretendard"), ("fonts/outfit-latin.woff2", "PA Outfit", "PAOutfit")]:
+for src, fam, ps in [("${SRC}", "PA Sans", "PASans"), ("fonts/outfit-latin.woff2", "PA Display", "PADisplay")]:
   for w, sub in WEIGHTS.items():
     f = instantiateVariableFont(TTFont(src), {"wght": w})
     f.flavor = None                      # woff2 → TTF

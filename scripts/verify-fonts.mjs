@@ -40,7 +40,7 @@ const checks = [
 ];
 // 인쇄용 정적 TTF — 이름·굵기가 어긋나면 Typst 가 조용히 다른 굵기·시스템 글꼴을 쓴다.
 const WEIGHTS = { 400: "Regular", 500: "Medium", 600: "SemiBold", 700: "Bold", 800: "ExtraBold" };
-for (const [fam, file, hangul] of [["PA Pretendard", "PAPretendard", 11172], ["PA Outfit", "PAOutfit", 0]]) {
+for (const [fam, file, hangul] of [["PA Sans", "PASans", 11172], ["PA Display", "PADisplay", 0]]) {
   for (const [w, sub] of Object.entries(WEIGHTS)) {
     const name = `${file}-${sub}.ttf`, p = r.print[name];
     if (!p) { checks.push([false, `인쇄용 ${name} 이 없다 — node scripts/build-print-fonts.mjs`]); continue; }
@@ -49,6 +49,7 @@ for (const [fam, file, hangul] of [["PA Pretendard", "PAPretendard", 11172], ["P
       [p.family === fam && (p.typo ?? fam) === fam, `${name} 패밀리 이름이 ${fam} 가 아니다 (${p.family}/${p.typo})`],
       [p.sub === sub, `${name} 스타일 이름이 ${sub} 가 아니다 (${p.sub})`],
       [p.weight === Number(w), `${name} 굵기 클래스가 ${w} 가 아니다 (${p.weight})`],
+      [!/pretendard|outfit/i.test(`${p.family} ${p.typo} ${name}`), `${name} 이 원래 이름(예약 이름)을 쓴다 — OFL 3항`],
       [p.hangul === hangul, `${name} 한글이 ${hangul}자가 아니다 (${p.hangul})`],
     );
   }
