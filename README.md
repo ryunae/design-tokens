@@ -70,6 +70,8 @@ fs.writeFileSync("tokens.json",JSON.stringify({prefix:"ds",hue,names},null,2)+"\
 
 서체 재생성은 `scripts/subset.sh`.
 
+인쇄용(PDF·Typst) 정적 TTF 는 `fonts/print/` — `PA Pretendard`(현대 한글 11,172자 전부, 나누지 않음)·`PA Outfit`, 굵기 400·500·600·700·800. Typst 가 가변 글꼴·woff2 를 못 읽어서 따로 싣는다. 소비자는 `fontPaths: [<패키지>/fonts/print]` 하나만 넘긴다. 재생성은 `node scripts/build-print-fonts.mjs`(원본 `.src/` 는 `subset.sh` 의 받는 명령으로), 확인은 `node scripts/verify-fonts.mjs`.
+
 ## 설계 근거
 
 `docs/superpowers/specs/2026-09-30-design-tokens-ssot-design.md` (구현 계획은 `docs/superpowers/plans/`). 원래 client-crawling 레포에서 썼고 2026-09-30 이리로 옮겼다.
