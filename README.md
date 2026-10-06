@@ -8,7 +8,7 @@
 |---|---|---|---|
 | GEO-maseuteo | `~/Documents/Dev/app/GEO-maseuteo` | `artifacts/geo-master/package.json` | `artifacts/geo-master/src/index.css` (기준 출처) |
 | review-gen | `~/Documents/Dev/app/review-gen` | `package.json` | `src/index.css` |
-| client-crawling | `~/Documents/Dev/client-crawling` | `package.json` | `src/web/app.css` |
+| crawler (옛 client-crawling) | `~/Documents/Dev/crawler` | `package.json` | `src/web/app.css` |
 | payattention-os | `~/Documents/Dev/app/payattention-os` | `package.json` | `src/app/globals.css` |
 
 새 소비자를 붙이면 이 표에 한 줄 더한다. **태그를 달면 같은 작업 안에서 이 표의 전부를 새 태그로 올리고, 아래가 전부 ok 인 걸 본 뒤에 끝낸다.** 소비자는 태그가 있어야 핀을 올릴 수 있으니 태그가 먼저, 끝은 전부 ok 다:
@@ -34,14 +34,14 @@ pnpm add "@ryunae/design-tokens@github:ryunae/design-tokens#v1.0.0"
 
 모든 토큰에 `--ds-` 가 붙는다. 소비자의 어휘와 충돌하지 않게 하려는 것이다.
 
-- client-crawling 은 `--muted` 를 「흐린 **글자**」로 쓰는데 shadcn 은 「흐린 **배경**」으로 쓴다. 같은 이름이 다른 뜻이면 덮기가 어긋나는 순간 글자가 사라지고, CSS 는 에러를 안 낸다.
+- crawler 는 `--muted` 를 「흐린 **글자**」로 쓰는데 shadcn 은 「흐린 **배경**」으로 쓴다. 같은 이름이 다른 뜻이면 덮기가 어긋나는 순간 글자가 사라지고, CSS 는 에러를 안 낸다.
 - `--card` 는 뜻이 같아도 형식이 다르다(1층 삼중항 · 2층 색). 접두어가 없으면 `--card: hsl(var(--card))` 가 **자기 참조**가 되어 속성이 통째로 무효화된다. 커스텀 프로퍼티는 소스 순서가 아니라 최종값으로 치환되므로 `:root` 를 쪼개도 순환은 그대로다.
 
 ## 2층 — 여기 없는 것
 
 `tokens.css` 는 1층이다. 아래는 각 프로젝트가 정한다.
 
-- **어느 hue 를 누구에게 배정할지.** client-crawling 은 거래처=`--ds-hue-1` · 경쟁사1=`--ds-hue-4`(호박). geo-master 는 `--ds-chart-1..5` 순서.
+- **어느 hue 를 누구에게 배정할지.** crawler 는 거래처=`--ds-hue-1` · 경쟁사1=`--ds-hue-4`(호박). geo-master 는 `--ds-chart-1..5` 순서.
 - **배경별 명도·채도.** 어두운 배경에서 읽히려면 올려야 한다. hue 만 지키면 된다.
 - **어두운 짝**(`--comp1-bg` 류). 눈으로 맞춘 대비라 자동 유도하지 않는다.
 - **한글 폴백.** `pretendard-ext` 도 못 덮는 글자(옛한글·한자).
