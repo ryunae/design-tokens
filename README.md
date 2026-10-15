@@ -10,6 +10,7 @@
 | review-gen | `~/Documents/Dev/app/review-gen` | `package.json` | `src/index.css` |
 | crawler (옛 client-crawling) | `~/Documents/Dev/crawler` | `package.json` | `src/web/app.css` |
 | payattention-os | `~/Documents/Dev/app/payattention-os` | `package.json` | `src/app/globals.css` |
+| adreview(심의 마스터) | `~/Documents/Dev/adreview` | `artifacts/web/package.json` | `artifacts/web/src/index.css` |
 
 새 소비자를 붙이면 이 표에 한 줄 더한다. **태그를 달면 같은 작업 안에서 이 표의 전부를 새 태그로 올리고, 아래가 전부 ok 인 걸 본 뒤에 끝낸다.** 소비자는 태그가 있어야 핀을 올릴 수 있으니 태그가 먼저, 끝은 전부 ok 다:
 
