@@ -44,6 +44,10 @@
   --ds-muted: 230 20% 10%;
   --ds-muted-foreground: 215 20% 65%;
   --ds-accent: var(--ds-hue-2) 87% 65%;
+  /* 채움용 자주(2026-10-27, D-010) — 보라→자주 그라데이션 단추처럼 자주를 **바탕**으로 칠하고 흰 글자를
+   * 얹을 때의 끝색. --ds-accent(L65%) 위 흰 글자는 3.38:1. L50% 는 5.13:1 이라 from --ds-primary-solid(5.15:1)
+   * to --ds-accent-solid 그라데이션은 양 끝 모두 4.5:1 을 넘는다. 글자·장식으로 쓰는 자주는 --ds-accent 그대로. */
+  --ds-accent-solid: var(--ds-hue-2) 87% 50%;
   --ds-accent-foreground: 210 40% 98%;
   --ds-destructive: var(--ds-hue-5) 84% 60%;
   --ds-destructive-foreground: 210 40% 98%;
