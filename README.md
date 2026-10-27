@@ -39,6 +39,14 @@ geo 가 화면마다 Tailwind 클래스로 박던 값을 토큰으로 올렸다 
 - 조합(`utilities.css`): `.page-enter`(본문 등장) · `.motion-colors`(색 전환) · `.glass-panel-hover`(손 올림 밝아짐). 움직임은 전부 `prefers-reduced-motion: no-preference` 안에만 있다 — 「동작 줄이기」를 켠 사람에게는 없다.
 - Tailwind 소비자는 `duration-[var(--ds-duration)]` 처럼 값만 가져다 써도 된다.
 
+### 갈라짐 경고(v1.5.0)
+
+`check-consumer.mjs` 가 실패와 별도로 **경고**를 낸다(종료 코드는 그대로): `duration-숫자`·`transition/animation … 숫자ms`(→ `--ds-duration*`), `text-white/` 50 미만(어두운 바탕 4.5:1 미달 위험), 같은 클래스 문자열 안의 채운 빨강 + 흰 글자(3.56:1). 주석 줄은 보지 않는다. 근거는 볼트 D-008.
+
+### 채움용 보라(v1.5.0)
+
+보라를 **바탕**으로 칠하고 흰 글자를 얹는 곳(주 단추·지금 탭·선택 표시)은 `--ds-primary-solid`(+ `--ds-primary-solid-border`)를 쓴다. `--ds-primary` 위 흰 글자는 4.06:1(4.5:1 미달), solid 는 5.15:1. 글자·테두리로 쓰는 보라는 `--ds-primary` 그대로. 근거는 볼트 D-009.
+
 ## 이름공간
 
 모든 토큰에 `--ds-` 가 붙는다. 소비자의 어휘와 충돌하지 않게 하려는 것이다.

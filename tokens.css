@@ -34,6 +34,11 @@
   /* --- 의미색 --- */
   --ds-primary: var(--ds-hue-1) 87% 67%;
   --ds-primary-foreground: 210 40% 98%;
+  /* 채움용 보라(2026-10-27, D-009) — 단추·지금 탭처럼 보라를 **바탕**으로 칠하고 그 위에 흰 글자
+   * (--ds-primary-foreground)를 얹을 때. --ds-primary(L67%) 위 흰 글자는 4.06:1 이라 4.5:1 에 못 미친다.
+   * L62% 는 5.15:1. 글자로 쓰는 보라(링크·현재 메뉴)는 어두운 바탕 위라 --ds-primary 그대로(4.7:1) —
+   * 하나로 합쳐 어둡게 하면 이번엔 그쪽이 떨어진다(L60% 에서 3.38:1). */
+  --ds-primary-solid: var(--ds-hue-1) 87% 62%;
   --ds-secondary: 230 20% 15%;
   --ds-secondary-foreground: 210 40% 98%;
   --ds-muted: 230 20% 10%;
@@ -66,6 +71,7 @@
 
   /* --- 테두리 파생. 바탕보다 9% 밝은 선. --- */
   --ds-primary-border: hsl(from hsl(var(--ds-primary)) h s calc(l + 9));
+  --ds-primary-solid-border: hsl(from hsl(var(--ds-primary-solid)) h s calc(l + 9));
   --ds-secondary-border: hsl(from hsl(var(--ds-secondary)) h s calc(l + 9));
   --ds-muted-border: hsl(from hsl(var(--ds-muted)) h s calc(l + 9));
   --ds-accent-border: hsl(from hsl(var(--ds-accent)) h s calc(l + 9));
