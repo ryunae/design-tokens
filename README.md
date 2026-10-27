@@ -31,6 +31,14 @@ pnpm add "@ryunae/design-tokens@github:ryunae/design-tokens#v1.0.0"
 @import "@ryunae/design-tokens/fonts.css";
 ```
 
+### 움직임·조작 요소(v1.4.0)
+
+geo 가 화면마다 Tailwind 클래스로 박던 값을 토큰으로 올렸다 — 앱마다 「GEO 같은 느낌」이 갈라지지 않게.
+
+- 값: `--ds-duration-fast`(150ms) · `--ds-duration`(200ms) · `--ds-duration-enter`(500ms) · `--ds-ease` · `--ds-enter-distance`(24px) · `--ds-control-h`(36px, geo 버튼 `min-h-9`) · `--ds-glass-hover` · `--ds-glass-line-hover`.
+- 조합(`utilities.css`): `.page-enter`(본문 등장) · `.motion-colors`(색 전환) · `.glass-panel-hover`(손 올림 밝아짐). 움직임은 전부 `prefers-reduced-motion: no-preference` 안에만 있다 — 「동작 줄이기」를 켠 사람에게는 없다.
+- Tailwind 소비자는 `duration-[var(--ds-duration)]` 처럼 값만 가져다 써도 된다.
+
 ## 이름공간
 
 모든 토큰에 `--ds-` 가 붙는다. 소비자의 어휘와 충돌하지 않게 하려는 것이다.

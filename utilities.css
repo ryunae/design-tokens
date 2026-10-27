@@ -77,8 +77,36 @@
   right: 18%;
   background: hsl(var(--ds-accent) / 0.09);
 }
+/* 손을 올리면 밝아지는 유리 패널 — geo 카드(glass-panel + hover:bg-white/[0.08] hover:border-white/20). */
+.glass-panel-hover:hover {
+  background-color: var(--ds-glass-hover);
+  border-color: var(--ds-glass-line-hover);
+}
+
+/* 움직임(2026-10-27). 「동작 줄이기」를 켠 사람에게는 없다 — 움직임은 이 블록 안에만 둔다.
+ * .motion-colors: 색·테두리·그림자가 --ds-duration 에 걸쳐 바뀐다(geo transition-all duration-200).
+ * .page-enter:    화면 본문이 흐리게 아래에서 올라온다(geo motion.div initial opacity 0·y 24, 0.5s).
+ *                 끝 상태는 transform: none — 남기면 안쪽 position: fixed·sticky 의 기준이 바뀐다. */
 @media (prefers-reduced-motion: no-preference) {
-  /* 정지 화면이라 움직임은 없다 — 이 블록은 앞으로 움직임을 넣을 자리다. */
+  .motion-colors,
+  .glass-panel-hover {
+    transition-property: color, background-color, border-color, box-shadow, opacity;
+    transition-duration: var(--ds-duration);
+    transition-timing-function: var(--ds-ease);
+  }
+  .page-enter {
+    animation: ds-page-enter var(--ds-duration-enter) var(--ds-ease) both;
+  }
+}
+@keyframes ds-page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(var(--ds-enter-distance));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* 배경 질감 — geo 는 이 그림을 7개 화면 **전부**에 고정으로 깐다(로그인만이 아니다).
