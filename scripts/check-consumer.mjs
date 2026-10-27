@@ -66,5 +66,32 @@ for (const file of files) {
     bad++;
   }
 }
+// --- 갈라짐 경고(2026-10-27, D-008). 실패가 아니라 경고다 — 종료 코드를 바꾸지 않는다.
+// 오늘 다섯 앱을 GEO 기준으로 맞추며 고친 것은 전부 「값을 직접 적은 곳」이었다:
+// 움직임 시간을 숫자로(→ --ds-duration*), 4.5:1 에 못 미치는 흐린 흰 글자, 채운 빨강 위 흰 글자(3.56:1).
+// 일부러 다른 값(반복 애니메이션·지연)도 있어 막지는 않는다 — 새로 들어오는 것을 사람이 보게 한다.
+// 줄 앞이 // 나 * 인 주석 줄은 보지 않는다.
+let warned = 0;
+const warn = (file, line, msg) => {
+  console.log(`경고 ${file}:${line} ${msg}`);
+  warned++;
+};
+for (const file of files) {
+  const lines = fs.readFileSync(file, "utf8").split("\n");
+  lines.forEach((text, i) => {
+    if (/^\s*(\/\/|\*|\/\*)/.test(text)) return;
+    const at = i + 1;
+    for (const m of text.matchAll(/\bduration-(\d{2,4})\b/g))
+      warn(file, at, `duration-${m[1]} — 움직임 시간은 토큰(--ds-duration-fast·--ds-duration·--ds-duration-enter)으로`);
+    if (/(transition|animation)[\w-]*\s*:[^;]*\b\d{2,4}ms/.test(text))
+      warn(file, at, "움직임 시간을 ms 로 직접 적었다 — 토큰(--ds-duration*)으로");
+    for (const m of text.matchAll(/\btext-white\/(\d{1,2})\b/g))
+      if (Number(m[1]) < 50) warn(file, at, `text-white/${m[1]} — 어두운 바탕에서 4.5:1 에 못 미칠 수 있다(white/60 이상)`);
+    for (const m of text.matchAll(/(["'`])([^"'`]*)\1/g))
+      if (/\bbg-(destructive|danger)(?![\w/-])/.test(m[2]) && /\btext-(white|destructive-foreground|danger-fg)\b/.test(m[2]))
+        warn(file, at, "채운 빨강 위 흰 글자 — 대비 4.5:1 미달(3.56:1). 테두리형(빨간 글자·테두리)으로");
+  });
+}
+if (warned) console.log(`경고 ${warned}건(실패 아님) — D-008`);
 console.log(bad ? `${bad}건 걸림` : "1층 계약 이상 없음");
 process.exit(bad ? 1 : 0);
