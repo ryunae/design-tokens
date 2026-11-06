@@ -1,6 +1,6 @@
 # design-tokens
 
-문서: 결정·오류·구조는 `docs/`, 2026-11-06까지의 옛 기록은 `docs/history/`(읽기 전용). 시작·종료 의무와 브랜치 규칙은 전역 `CLAUDE.md` 「Dev 저장소 공통」.
+문서: 결정·오류·구조는 `docs/`, 2026-11-06까지의 옛 기록은 비공개 저장소 `paos`의 `docs/history/design-tokens/`(읽기 전용). 시작·종료 의무와 브랜치 규칙은 전역 `CLAUDE.md` 「Dev 저장소 공통」.
 브랜치 `claude/*`·`codex/*`, main 머지는 사람(squash 금지 — 훅이 막는다). 작성자 라벨 `**작성:** [클로드코드]`/`[지피티]`. 작업본(plan·spec·런북)은 이 repo `docs/`.
 
 ## 명령

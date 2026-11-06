@@ -18,7 +18,7 @@
 node scripts/consumers.mjs   # 각 레포 origin/main 의 핀이 최신 태그인지. 하나라도 아니면 실패
 ```
 
-상태·결정·인계는 볼트 `600. Developments/lib/design-tokens/` 에 있다.
+옛 개발 기록은 비공개 저장소 `paos`의 `docs/history/design-tokens/`에 있다.
 
 ## 쓰는 법
 
