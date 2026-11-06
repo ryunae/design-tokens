@@ -16,3 +16,9 @@
 
 ## 멈춤 규칙 — 이 저장소 (2026-10-22)
 - 공통 멈춤 규칙(고치기 2번·멈추고 묻기·완료 보고)은 전역 `~/.claude/CLAUDE.md`(Codex 는 `~/.codex/AGENTS.md`) 「멈춤 규칙」을 따른다. 완료 보고에 붙일 이 저장소 검사: 테스트 없음 — `bash scripts/self-check.sh` · `node scripts/consumers.mjs` 출력을 붙인다.
+
+<!-- repo-docs:contract-public v1 -->
+## 문서
+
+이 저장소에는 개발 문서를 커밋하지 않는다. `docs/`에 새 문서를 쓰지 말고, 작업을 맡긴 사람에게 어디에 남길지 묻는다.
+<!-- /repo-docs:contract-public -->
